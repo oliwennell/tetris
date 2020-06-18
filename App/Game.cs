@@ -2,9 +2,15 @@ namespace App
 {
     public static class Game
     {
-        public static State Step(State state)
+        public static World Step(World world)
         {
-            return null;
+            return new World(world)
+                .WithFallingShape(ApplyGravity(world.FallingShape));
+        }
+
+        private static Shape ApplyGravity(Shape fallingShape)
+        {
+            return new Shape(fallingShape).MoveDown();
         }
     }
 }

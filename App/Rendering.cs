@@ -4,19 +4,19 @@ namespace App
 {
     public static class Rendering
     {
-        public static string[] RenderState(State state)
+        public static string[] RenderState(World world)
         {
-            var rows = new char[state.Height][];
+            var rows = new char[world.Height][];
 
-            for (var row = 0; row < state.Height; row++)
+            for (var row = 0; row < world.Height; row++)
             {
-                rows[row] = new char[state.Width];
-                for (var column = 0; column < state.Width; column++)
+                rows[row] = new char[world.Width];
+                for (var column = 0; column < world.Width; column++)
                     rows[row][column] = ' ';
             }
 
-            var allPoints = state.StaticShapes.SelectMany(s => s.Points)
-                .Concat(state.FallingShape.Points);
+            var allPoints = world.StaticShapes.SelectMany(s => s.Points)
+                .Concat(world.FallingShape.Points);
             
             foreach (var point in allPoints)
             {

@@ -8,7 +8,7 @@ namespace Tests
         [Test]
         public void The_falling_shape_is_rendered_as_text()
         {
-            var state = new State(
+            var state = new World(
                 width: 4,
                 height: 5,
                 pendingShapes: new Shape[0], 
@@ -37,7 +37,7 @@ namespace Tests
         [Test]
         public void Static_shapes_are_rendered_as_text()
         {
-            var state = new State(
+            var state = new World(
                 width: 5,
                 height: 5,
                 pendingShapes: new Shape[0], 
@@ -76,7 +76,7 @@ namespace Tests
         [Test]
         public void Pending_shapes_are_not_rendered()
         {
-            var state = new State(
+            var state = new World(
                 width: 4,
                 height: 5,
                 pendingShapes: new []

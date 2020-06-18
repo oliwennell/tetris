@@ -1,6 +1,6 @@
 namespace App
 {
-    public class Point
+    public struct Point
     {
         public int X { get; }
         public int Y { get; }

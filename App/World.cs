@@ -3,16 +3,16 @@ using System.Linq;
 
 namespace App
 {
-    public class State
+    public class World
     {
         public uint Width { get; }
         public uint Height { get; }
         
         public Shape[] PendingShapes { get; }
-        public Shape FallingShape { get; }
+        public Shape FallingShape { get; private set; }
         public Shape[] StaticShapes { get; }
 
-        public State(
+        public World(
             uint width,
             uint height,
             IEnumerable<Shape> pendingShapes,
@@ -21,8 +21,16 @@ namespace App
         {
             Width = width;
             Height = height;
+            PendingShapes = pendingShapes.ToArray();
             FallingShape = fallingShape;
             StaticShapes = staticShapes.ToArray();
         }
+
+        public World(World other) :
+            this(other.Width, other.Height, other.PendingShapes, other.FallingShape, other.StaticShapes)
+        {
+        }
+
+        public World WithFallingShape(Shape fallingShape) => new World(this) { FallingShape = fallingShape };
     }
 }
