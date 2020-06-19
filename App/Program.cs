@@ -10,12 +10,16 @@ namespace App
             var world = new World(
                 width: 5,
                 height: 5,
-                pendingShapes: new Shape[0],
+                pendingShapes: new []
+                {
+                    new Shape(new []{ new Point(2, 6) }),
+                    new Shape(new []{ new Point(2, 7) }),
+                },
                 fallingShape: new Shape(new []{ new Point(2, 5) }),
                 staticShapes: new Shape[0]);
 
             
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
                 world = Game.Step(world);
                 var renderedWorld = Rendering.RenderWorld(world);

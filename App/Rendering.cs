@@ -18,13 +18,19 @@ namespace App
             var allPoints = world.StaticShapes.SelectMany(s => s.Points)
                 .Concat(world.FallingShape.Points);
             
-            foreach (var point in allPoints)
+            foreach (var point in allPoints.Where(p => IsWithinBoundsOfWorld(p, world)))
             {
                 rows[point.Y][point.X] = 'X';
             }
             
             return rows.Select(r => new string(r))
                 .ToArray();
+        }
+
+        private static bool IsWithinBoundsOfWorld(Point point, World world)
+        {
+            return point.X >= 0 && point.X < world.Width &&
+                   point.Y >= 0 && point.Y < world.Height;
         }
     }
 }

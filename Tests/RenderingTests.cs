@@ -6,7 +6,7 @@ namespace Tests
     public class RenderingTests
     {
         [Test]
-        public void The_falling_shape_is_rendered_as_text()
+        public void The_falling_shape_is_rendered_when_within_the_bounds_of_the_world()
         {
             var world = new World(
                 width: 4,
@@ -30,6 +30,33 @@ namespace Tests
                 "    ",
                 " XX ",
                 " XX ",
+                "    ",
+            }));
+        }
+        
+        [TestCase(2,6)]
+        [TestCase(2,6)]
+        [TestCase(2,-1)]
+        [TestCase(-1,2)]
+        [TestCase(4,2)]
+        public void The_falling_shape_is_not_rendered_when_outside_the_bounds_of_the_world(int x, int y)
+        {
+            var world = new World(
+                width: 4,
+                height: 5,
+                pendingShapes: new Shape[0], 
+                fallingShape: new Shape(new [] { new Point(x,y) }),
+                staticShapes: new Shape[0]
+            );
+
+            var renderedText = Rendering.RenderWorld(world);
+            
+            Assert.That(renderedText, Is.EquivalentTo(new[]
+            {
+                "    ",
+                "    ",
+                "    ",
+                "    ",
                 "    ",
             }));
         }
