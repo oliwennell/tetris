@@ -42,5 +42,24 @@ namespace Tests
                     new Point(2, 2), new Point(2, 1), new Point(2, 0)
                 }));
         }
+        
+        [Test]
+        public void More_complicated_falling_shape_can_be_rotated()
+        {
+            var worldBefore = new World(
+                width: 5,
+                height: 5,
+                pendingShapes: new Shape[0],
+                fallingShape: new Shape(new []{ new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(3, 2) }),
+                staticShapes: new Shape[0]);
+
+            var worldAfter = Game.RotateFallingShapeLeft(worldBefore);
+            
+            Assert.That(worldAfter.FallingShape.Points,
+                Is.EquivalentTo(new[]
+                {
+                    new Point(2, 0), new Point(2, 1), new Point(2, 2), new Point(1, 2), 
+                }));
+        }
     }
 }

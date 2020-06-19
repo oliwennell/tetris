@@ -34,8 +34,9 @@ namespace App
                 point.Y - pivot.Y);
             
             var pointRotatedAroundOrigin = new Point(
-                (int)(pointAtOrigin.X * Math.Cos(angleInRadians) - pointAtOrigin.Y * Math.Sin(angleInRadians)),
-                (int)(pointAtOrigin.X * Math.Sin(angleInRadians) - pointAtOrigin.Y * Math.Cos(angleInRadians)));
+                (int)Math.Round(pointAtOrigin.X * Math.Cos(angleInRadians) - pointAtOrigin.Y * Math.Sin(angleInRadians)),
+                (int)Math.Round(pointAtOrigin.X * Math.Sin(angleInRadians) - pointAtOrigin.Y * Math.Cos(angleInRadians))
+            );
             
             var pointRotatedAroundPivot = new Point(
                 pointRotatedAroundOrigin.X + pivot.X,

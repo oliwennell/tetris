@@ -14,15 +14,21 @@ namespace App
                 pendingShapes: new []
                 {
                     //new Shape(new []{ new Point(2, top+1), new Point(2, top+2), new Point(3, top+2), new Point(4, top+2) }),
-                    new Shape(new []{ new Point(1, top+1), new Point(2, top+1), new Point(3, top+1) }),
+                    new Shape(new []{ new Point(1, top+1), new Point(2, top+1), new Point(3, top+1), new Point(3, top+2) }),
+                    new Shape(new []{ new Point(1, top+3), new Point(2, top+3), new Point(3, top+3), new Point(4, top+3) }),
                 },
                 fallingShape: new Shape(new []{ new Point(2, top+1) }),
                 staticShapes: new Shape[0]);
 
-            
+            var input = "";
             for (int i = 0; i < 100; i++)
             {
-                world = Simulation.Step(world);
+                if (input == "q")
+                    world = Game.RotateFallingShapeLeft(world);
+                else if (input == "w")
+                    world = Game.RotateFallingShapeRight(world);
+                else
+                    world = Simulation.Step(world);
 
                 var renderedWorld = Rendering.RenderWorld(world);
                 for (int j = 0; j < renderedWorld.Length; j++)
@@ -35,11 +41,7 @@ namespace App
                 }
                 
                 Console.WriteLine("------------------------------");
-                var input = Console.ReadLine();
-                if (input == "q")
-                    world = Game.RotateFallingShapeLeft(world);
-                else if (input == "w")
-                    world = Game.RotateFallingShapeRight(world);
+                input = Console.ReadLine();
             }
         }
     }
