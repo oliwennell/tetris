@@ -22,7 +22,12 @@ namespace App
             for (int i = 0; i < 100; i++)
             {
                 world = Game.Step(world);
+
                 var renderedWorld = Rendering.RenderWorld(world);
+                for (int j = 0; j < renderedWorld.Length; j++)
+                {
+                    Console.Clear();
+                }
                 foreach (var line in renderedWorld.Reverse())
                 {
                     Console.WriteLine(line);
