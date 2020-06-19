@@ -8,7 +8,7 @@ namespace App
         public uint Width { get; }
         public uint Height { get; }
         
-        public Shape[] PendingShapes { get; }
+        public Shape[] PendingShapes { get; private set; }
         public Shape FallingShape { get; private set; }
         public Shape[] StaticShapes { get; private set; }
 
@@ -39,5 +39,7 @@ namespace App
             newWorld.StaticShapes = newWorld.StaticShapes.Concat(new[] {fallingShape}).ToArray();
             return newWorld;
         }
+
+        public World WithPendingShapes(Shape[] pendingShapes) => new World(this) { PendingShapes = pendingShapes };
     }
 }

@@ -80,6 +80,25 @@ namespace Tests
             Assert.That(world.StaticShapes.Single().Points.Single(),
                 Is.EqualTo(new Point(2,0)));
         }
+
+        [Test]
+        public void After_one_falling_shape_reaches_the_ground_the_next_pending_shape_starts_to_fall()
+        {
+            var pendingShape = new Shape(new []{ new Point(2, 5) });
+            var world = new World(
+                width: 5,
+                height: 5,
+                pendingShapes: new []{ pendingShape },
+                fallingShape: new Shape(new []{ new Point(2, 1) }),
+                staticShapes: new Shape[0]);
+
+            world = Game.Step(world);
+            world = Game.Step(world);
+
+            Assert.That(world.PendingShapes.Length, Is.EqualTo(0));
+            Assert.That(world.FallingShape.Points.Single(),
+                Is.EqualTo(pendingShape.Points.Single()));
+        }
         
         [Test]
         public void Static_shapes_do_not_move()

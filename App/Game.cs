@@ -11,7 +11,19 @@ namespace App
             if (hasFallenThroughFloor)
             {
                 var fallingShapeMadeStatic = new Shape(fallingShape).MoveUp();
-                return new World(oldWorld).WithStaticShape(fallingShapeMadeStatic);
+                var newWorld = new World(oldWorld).WithStaticShape(fallingShapeMadeStatic);
+
+                if (!oldWorld.PendingShapes.Any())
+                {
+                    return newWorld;
+                }
+                
+                var newFallingShape = oldWorld.PendingShapes.First();
+                var remainingPendingShapes = oldWorld.PendingShapes.Skip(1).ToArray();
+
+                return newWorld
+                    .WithFallingShape(newFallingShape)
+                    .WithPendingShapes(remainingPendingShapes);
             }
             else
             {
