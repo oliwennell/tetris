@@ -64,7 +64,7 @@ namespace Tests
         }
 
         [Test]
-        public void When_the_falling_shape_reaches_the_ground_it_becomes_static_on_the_next_step()
+        public void When_the_falling_shape_touches_the_ground_it_becomes_static_on_the_next_step()
         {
             var world = new World(
                 width: 5,
@@ -80,6 +80,24 @@ namespace Tests
             Assert.That(world.StaticShapes.Single().Points.Single(),
                 Is.EqualTo(new Point(2,0)));
         }
+        
+        [Test]
+        public void When_the_falling_shape_intersects_with_a_static_shape_it_becomes_static_too()
+        {
+            var world = new World(
+                width: 5,
+                height: 5,
+                pendingShapes: new Shape[0],
+                fallingShape: new Shape(new []{ new Point(2, 3) }),
+                staticShapes: new []{ new Shape(new []{ new Point(2, 0), new Point(2, 1) }) });
+
+            world = Game.Step(world);
+            world = Game.Step(world);
+
+            Assert.That(world.StaticShapes.Length, Is.EqualTo(2));
+            Assert.That(world.StaticShapes.Last().Points.Single(),
+                Is.EqualTo(new Point(2,2)));
+        }
 
         [Test]
         public void After_one_falling_shape_reaches_the_ground_the_next_pending_shape_starts_to_fall()
@@ -91,6 +109,25 @@ namespace Tests
                 pendingShapes: new []{ pendingShape },
                 fallingShape: new Shape(new []{ new Point(2, 1) }),
                 staticShapes: new Shape[0]);
+
+            world = Game.Step(world);
+            world = Game.Step(world);
+
+            Assert.That(world.PendingShapes.Length, Is.EqualTo(0));
+            Assert.That(world.FallingShape.Points.Single(),
+                Is.EqualTo(pendingShape.Points.Single()));
+        }
+        
+        [Test]
+        public void After_one_falling_shape_intersects_with_a_static_shape_the_next_pending_shape_starts_to_fall()
+        {
+            var pendingShape = new Shape(new []{ new Point(2, 5) });
+            var world = new World(
+                width: 5,
+                height: 5,
+                pendingShapes: new []{ pendingShape },
+                fallingShape: new Shape(new []{ new Point(2, 3) }),
+                staticShapes: new []{ new Shape(new []{ new Point(2, 0), new Point(2, 1) }) });
 
             world = Game.Step(world);
             world = Game.Step(world);
