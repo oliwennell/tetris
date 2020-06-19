@@ -10,7 +10,7 @@ namespace App
         
         public Shape[] PendingShapes { get; }
         public Shape FallingShape { get; private set; }
-        public Shape[] StaticShapes { get; }
+        public Shape[] StaticShapes { get; private set; }
 
         public World(
             uint width,
@@ -32,5 +32,12 @@ namespace App
         }
 
         public World WithFallingShape(Shape fallingShape) => new World(this) { FallingShape = fallingShape };
+
+        public World WithStaticShape(Shape fallingShape)
+        {
+            var newWorld = new World(this);
+            newWorld.StaticShapes = newWorld.StaticShapes.Concat(new[] {fallingShape}).ToArray();
+            return newWorld;
+        }
     }
 }

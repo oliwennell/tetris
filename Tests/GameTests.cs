@@ -41,7 +41,7 @@ namespace Tests
         }
 
         [Test]
-        public void The_designated_falling_shape_falls_downwards_over_time()
+        public void The_falling_shape_falls_downwards_over_time()
         {
             var worldBefore = new World(
                 width: 5,
@@ -63,6 +63,24 @@ namespace Tests
             Assert.That(worldAfter5.FallingShape.Points.Single().Y, Is.EqualTo(0));
         }
 
+        [Test]
+        public void When_the_falling_shape_reaches_the_ground_it_becomes_static_on_the_next_step()
+        {
+            var world = new World(
+                width: 5,
+                height: 5,
+                pendingShapes: new Shape[0],
+                fallingShape: new Shape(new []{ new Point(2, 1) }),
+                staticShapes: new Shape[0]);
+
+            world = Game.Step(world);
+            world = Game.Step(world);
+
+            Assert.That(world.StaticShapes.Length, Is.EqualTo(1));
+            Assert.That(world.StaticShapes.Single().Points.Single(),
+                Is.EqualTo(new Point(2,0)));
+        }
+        
         [Test]
         public void Static_shapes_do_not_move()
         {
