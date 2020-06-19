@@ -20,7 +20,7 @@ namespace App
             
             for (int i = 0; i < 100; i++)
             {
-                world = Game.Step(world);
+                world = Simulation.Step(world);
 
                 var renderedWorld = Rendering.RenderWorld(world);
                 for (int j = 0; j < renderedWorld.Length; j++)
