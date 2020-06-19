@@ -9,7 +9,7 @@ namespace App
         {
             var fallingShape = ApplyGravity(oldWorld.FallingShape);
 
-            var fallingShapeIntersectsStaticShapes = DoesShapeIntersectWithOthers(fallingShape, oldWorld.StaticShapes);
+            var fallingShapeIntersectsStaticShapes = fallingShape.DoesShapeIntersectWith(oldWorld.StaticShapes);
             var fallingShapeIsBelowFloor = fallingShape.Points.Any(p => p.Y < 0);
             
             if (fallingShapeIsBelowFloor || fallingShapeIntersectsStaticShapes)
@@ -33,23 +33,6 @@ namespace App
             {
                 return new World(oldWorld).WithFallingShape(fallingShape);
             }
-        }
-
-        private static bool DoesShapeIntersectWithOthers(Shape shapeToTest, IEnumerable<Shape> otherShapes)
-        {
-            var pointsToTest = shapeToTest.Points;
-            var otherPoints = otherShapes.SelectMany(s => s.Points);
-            
-            foreach (var otherPoint in otherPoints)
-            {
-                foreach (var pointToTest in pointsToTest)
-                {
-                    if (pointToTest.Y == otherPoint.Y)
-                        return true;
-                }
-            }
-
-            return false;
         }
 
         private static Shape ApplyGravity(Shape fallingShape)

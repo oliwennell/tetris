@@ -31,5 +31,24 @@ namespace App
 
             return result;
         }
+
+        public bool DoesShapeIntersectWith(IEnumerable<Shape> otherShapes)
+        {
+            var otherPoints = otherShapes.SelectMany(s => s.Points);
+            
+            foreach (var otherPoint in otherPoints)
+            {
+                foreach (var pointToTest in Points)
+                {
+                    if (pointToTest.X == otherPoint.X &&
+                        pointToTest.Y == otherPoint.Y)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }

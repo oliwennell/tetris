@@ -12,9 +12,7 @@ namespace App
                 height: 5,
                 pendingShapes: new []
                 {
-                    new Shape(new []{ new Point(2, 5) }),
-                    new Shape(new []{ new Point(2, 6) }),
-                    new Shape(new []{ new Point(2, 7) }),
+                    new Shape(new []{ new Point(2, 5), new Point(2, 6), new Point(3, 6), new Point(4, 6) }),
                 },
                 fallingShape: new Shape(new []{ new Point(2, 5) }),
                 staticShapes: new Shape[0]);
