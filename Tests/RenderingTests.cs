@@ -8,7 +8,7 @@ namespace Tests
         [Test]
         public void The_falling_shape_is_rendered_as_text()
         {
-            var state = new World(
+            var world = new World(
                 width: 4,
                 height: 5,
                 pendingShapes: new Shape[0], 
@@ -22,7 +22,7 @@ namespace Tests
                 staticShapes: new Shape[0]
             );
 
-            var renderedText = Rendering.RenderState(state);
+            var renderedText = Rendering.RenderWorld(world);
             
             Assert.That(renderedText, Is.EquivalentTo(new[]
             {
@@ -37,7 +37,7 @@ namespace Tests
         [Test]
         public void Static_shapes_are_rendered_as_text()
         {
-            var state = new World(
+            var world = new World(
                 width: 5,
                 height: 5,
                 pendingShapes: new Shape[0], 
@@ -61,7 +61,7 @@ namespace Tests
                 }
             );
 
-            var renderedText = Rendering.RenderState(state);
+            var renderedText = Rendering.RenderWorld(world);
             
             Assert.That(renderedText, Is.EquivalentTo(new[]
             {
@@ -76,7 +76,7 @@ namespace Tests
         [Test]
         public void Pending_shapes_are_not_rendered()
         {
-            var state = new World(
+            var world = new World(
                 width: 4,
                 height: 5,
                 pendingShapes: new []
@@ -93,7 +93,7 @@ namespace Tests
                 staticShapes: new Shape[0]
             );
 
-            var renderedText = Rendering.RenderState(state);
+            var renderedText = Rendering.RenderWorld(world);
             
             Assert.That(renderedText, Is.EquivalentTo(new[]
             {

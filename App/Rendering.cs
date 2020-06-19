@@ -4,7 +4,7 @@ namespace App
 {
     public static class Rendering
     {
-        public static string[] RenderState(World world)
+        public static string[] RenderWorld(World world)
         {
             var rows = new char[world.Height][];
 
