@@ -7,14 +7,16 @@ namespace App
     {
         static void Main(string[] args)
         {
+            const int top = 15;
             var world = new World(
                 width: 5,
-                height: 5,
+                height: top+1,
                 pendingShapes: new []
                 {
-                    new Shape(new []{ new Point(2, 5), new Point(2, 6), new Point(3, 6), new Point(4, 6) }),
+                    //new Shape(new []{ new Point(2, top+1), new Point(2, top+2), new Point(3, top+2), new Point(4, top+2) }),
+                    new Shape(new []{ new Point(1, top+1), new Point(2, top+1), new Point(3, top+1) }),
                 },
-                fallingShape: new Shape(new []{ new Point(2, 5) }),
+                fallingShape: new Shape(new []{ new Point(2, top+1) }),
                 staticShapes: new Shape[0]);
 
             
@@ -33,7 +35,11 @@ namespace App
                 }
                 
                 Console.WriteLine("------------------------------");
-                Console.ReadLine();
+                var input = Console.ReadLine();
+                if (input == "q")
+                    world = Game.RotateFallingShapeLeft(world);
+                else if (input == "w")
+                    world = Game.RotateFallingShapeRight(world);
             }
         }
     }
